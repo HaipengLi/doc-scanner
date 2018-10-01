@@ -19,6 +19,7 @@ def transform(orig, ratio, screen_cnt):
     cv2.imshow("Original", imutils.resize(orig, height=650))
     cv2.imshow("Scanned", imutils.resize(warped, height=650))
     cv2.waitKey(0)
+    print("Finished")
 
 
 def find_contours(ori_img, edged_img):
@@ -36,7 +37,7 @@ def find_contours(ori_img, edged_img):
         # can assume that we have found our screen
         if len(approx) == 4:
             screen_cnt = approx
-            break
+            # break
 
     # show the contour (outline) of the piece of paper
     print("STEP 2: Find contours of paper")
@@ -55,13 +56,13 @@ def detect_edge(img):
     # in the image
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     gray_blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-    edged = cv2.Canny(gray_blurred, 75, 200)
+    edged = cv2.Canny(gray_blurred, 100, 200)
 
     # show the original image and the edge detected image
     print("STEP 1: Edge Detection")
     cv2.imshow("Image", img)
     cv2.imshow("Edged", edged)
-    cv2.imshow("Gray Blurred", gray_blurred)
+    # cv2.imshow("Gray Blurred", gray_blurred)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     return edged
